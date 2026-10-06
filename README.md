@@ -4,14 +4,20 @@ Part of Bhumi Farm's submission to the Colosseum Crypto World's Fair 2026 (Solan
 
 ## What this is
 
-A basic SPL fungible token template for Bhumi Farm, minted via Metaplex on Solana Devnet.
-This is a fresh, standalone token — it shares no code, branding, or on-chain identity with
-any earlier Bhumi Farm/ARTHA token experiments.
+BHUMI is Bhumi Farm's native token on Solana. It is live on devnet with its final name,
+icon, and metadata, and it shares its on-chain identity (the same treasury/mint-authority
+wallet) with the companion [Bhumi Farm NFT passport](https://github.com/DSdBVS/bhumi-farm-nft)
+repo — the token and the traceability NFTs are one connected system, not two unrelated demos.
 
-The token's exact role in the Bhumi Farm ecosystem (utility, governance, staking rewards,
-or a combination) is still being decided. This repo currently ships a working, minimal
-mint script so the flow is provable end-to-end on devnet; the placeholder supply and
-decimals in `create-bhumi-token.mjs` are meant to be adjusted once that's settled.
+## Live on devnet
+
+- Name: `Bhumi` · Symbol: `BHUMI`
+- Mint: [`5Jj9kxjcmfXbQU5RrXdBA7ZCyp7NuKs5vaYAihnyb8TJ`](https://explorer.solana.com/address/5Jj9kxjcmfXbQU5RrXdBA7ZCyp7NuKs5vaYAihnyb8TJ?cluster=devnet)
+- Solscan: https://solscan.io/token/5Jj9kxjcmfXbQU5RrXdBA7ZCyp7NuKs5vaYAihnyb8TJ?cluster=devnet
+- Decimals: 9 · Total supply: 18,000,000,000 BHUMI
+- Treasury / mint authority: `8QK2ZWwmkYWxY62XEf7LSWL1ZXuHgKAacKX8wjgMCy7L`
+- Icon + on-chain metadata (name/symbol/image) attached via Metaplex `updateV1`
+- First distribution sent: 7,000,000,000 BHUMI to the founder's devnet wallet, treasury holds the remaining 11,000,000,000
 
 ## What's in this repo
 
@@ -23,8 +29,15 @@ decimals in `create-bhumi-token.mjs` are meant to be adjusted once that's settle
 ## Stack
 
 - [Metaplex Umi](https://developers.metaplex.com/umi) + [`mpl-token-metadata`](https://developers.metaplex.com/token-metadata) — `createFungible` for the mint + metadata
-- `@solana/web3.js` + `@solana/spl-token` — minting the initial supply to the treasury's associated token account
+- `@solana/web3.js` + `@solana/spl-token` — minting and transfers
 - Solana Devnet
+
+## In progress — not deployed yet
+
+- **Staking** — design is built and proven (pause/resume switch, configurable APY, auto-burn), tested under an earlier token name. Needs a fresh deploy pointed at this BHUMI mint.
+- **DAO / governance** — same situation: design exists, not yet redeployed for BHUMI.
+- **Reward distribution** — depends on staking going live first.
+- **ARTHA Wallet integration** — not started.
 
 ## Running it yourself
 
@@ -38,14 +51,3 @@ and this token share one treasury/mint-authority address.
 npm install
 node create-bhumi-token.mjs
 ```
-
-If the wallet's SOL balance is low, the script requests a devnet airdrop automatically.
-It prints the mint address and a Solana Explorer (devnet) link when done, and writes the
-result to `bhumi-token-info.json`.
-
-## Roadmap
-
-- Decide the token's role in the Bhumi Farm/ARTHA ecosystem and update the metadata
-  (name, symbol stays BHUMI, supply, decimals) accordingly.
-- Add a metadata image + off-chain JSON (currently `TOKEN_URI` is empty).
-- Wire distribution (staking, rewards, liquidity) once the role is confirmed.
