@@ -1,53 +1,76 @@
 # Bhumi Farm Token (BHUMI)
 
-Part of Bhumi Farm's submission to the Colosseum Crypto World's Fair 2026 (Solana track).
+BHUMI is the Solana Devnet token component of the Bhumi Farm project, developed for the Colosseum Crypto World's Fair 2026.
 
-## What this is
+The token is deployed on Solana Devnet with live on-chain metadata and can be independently verified through Solana explorers.
 
-BHUMI is Bhumi Farm's native token on Solana. It is live on devnet with its final name,
-icon, and metadata, and it shares its on-chain identity (the same treasury/mint-authority
-wallet) with the companion [Bhumi Farm NFT passport](https://github.com/DSdBVS/bhumi-farm-nft)
-repo — the token and the traceability NFTs are one connected system, not two unrelated demos.
+## Token
 
-## Live on devnet
+- **Name:** `Bhumi`
+- **Symbol:** `BHUMI`
+- **Network:** Solana Devnet
+- **Mint:** `5Jj9kxjcmfXbQU5RrXdBA7ZCyp7NuKs5vaYAihnyb8TJ`
+- **Decimals:** `9`
+- **Total supply:** `18,000,000,000 BHUMI`
+- **Mint authority / treasury:** `8QK2ZWwmkYWxY62XEf7LSWL1ZXuHgKAacK8XwjgMCy7L`
 
-- Name: `Bhumi` · Symbol: `BHUMI`
-- Mint: [`5Jj9kxjcmfXbQU5RrXdBA7ZCyp7NuKs5vaYAihnyb8TJ`](https://explorer.solana.com/address/5Jj9kxjcmfXbQU5RrXdBA7ZCyp7NuKs5vaYAihnyb8TJ?cluster=devnet)
-- Solscan: https://solscan.io/token/5Jj9kxjcmfXbQU5RrXdBA7ZCyp7NuKs5vaYAihnyb8TJ?cluster=devnet
-- Decimals: 9 · Total supply: 18,000,000,000 BHUMI
-- Treasury / mint authority: `8QK2ZWwmkYWxY62XEf7LSWL1ZXuHgKAacKX8wjgMCy7L`
-- Icon + on-chain metadata (name/symbol/image) attached via Metaplex `updateV1`
-- First distribution sent: 7,000,000,000 BHUMI to the founder's devnet wallet, treasury holds the remaining 11,000,000,000
+**Explorer:**  
+https://explorer.solana.com/address/5Jj9kxjcmfXbQU5RrXdBA7ZCyp7NuKs5vaYAihnyb8TJ?cluster=devnet
+
+**Solscan:**  
+https://solscan.io/token/5Jj9kxjcmfXbQU5RrXdBA7ZCyp7NuKs5vaYAihnyb8TJ?cluster=devnet
+
+## What it is
+
+BHUMI is the token component of the Bhumi Farm Solana prototype.
+
+The broader Bhumi Farm project also includes an on-chain Batch Passport system using Solana NFTs. The token and NFT passport are maintained as separate components of the same project.
+
+The current BHUMI deployment is a **Devnet prototype**. This repository does not claim production token utility, staking, governance, or tokenomics.
+
+## On-chain metadata
+
+The token includes on-chain metadata for:
+
+- Name: `Bhumi`
+- Symbol: `BHUMI`
+- Token image / icon
+
+Metadata is created and updated using Metaplex Token Metadata.
+
+## Initial distribution
+
+The current Devnet deployment has:
+
+- **7,000,000,000 BHUMI** distributed to the project's founder Devnet wallet
+- **11,000,000,000 BHUMI** retained by the treasury
+
+These balances are part of the current Devnet demonstration and should not be interpreted as production tokenomics.
 
 ## What's in this repo
 
 | File | Purpose |
 |---|---|
-| `create-bhumi-token.mjs` | Creates the SPL mint + on-chain Metaplex metadata (name, symbol), then mints the initial supply to the treasury wallet. |
-| `package.json` | Dependencies (Metaplex `umi` + `@solana/web3.js` / `spl-token`). |
+| `create-bhumi-token.mjs` | Creates the SPL token mint, attaches Metaplex metadata, and mints the initial token supply. |
+| `package.json` | Project dependencies and scripts. |
 
-## Stack
+## Technical stack
 
-- [Metaplex Umi](https://developers.metaplex.com/umi) + [`mpl-token-metadata`](https://developers.metaplex.com/token-metadata) — `createFungible` for the mint + metadata
-- `@solana/web3.js` + `@solana/spl-token` — minting and transfers
-- Solana Devnet
+- **Solana Devnet**
+- **Metaplex Umi**
+- **Metaplex Token Metadata**
+- **`@solana/web3.js`**
+- **`@solana/spl-token`**
 
-## In progress — not deployed yet
+## Run locally
 
-- **Staking** — design is built and proven (pause/resume switch, configurable APY, auto-burn), tested under an earlier token name. Needs a fresh deploy pointed at this BHUMI mint.
-- **DAO / governance** — same situation: design exists, not yet redeployed for BHUMI.
-- **Reward distribution** — depends on staking going live first.
-- **ARTHA Wallet integration** — not started.
+Requires:
 
-## Running it yourself
+- Node.js
+- A funded Solana Devnet wallet
+- A local keypair configured for the script
 
-Requires a funded Solana devnet keypair. The script reads it from a local file path
-(not committed to this repo — see `create-bhumi-token.mjs`, top of file, for the
-expected path). It reuses the same devnet wallet as the companion
-[Bhumi Farm NFT passport](https://github.com/DSdBVS/bhumi-farm-nft) repo, so the NFT
-and this token share one treasury/mint-authority address.
+Install dependencies:
 
 ```bash
 npm install
-node create-bhumi-token.mjs
-```
